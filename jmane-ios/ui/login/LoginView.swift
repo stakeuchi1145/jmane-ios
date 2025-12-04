@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  LoginView.swift
 //  jmane-ios
 //
 //  Created by Shin Takeuchi on 2025/12/03.
@@ -169,9 +169,12 @@ struct LoginView: View {
     func login() {
         Task {
             isError = false
+            isLoading = true
+            defer { isLoading = false }
 
             if !viewModel.validEmail() || !viewModel.validPassword() {
                 isError = true
+                isLoading = false
                 showErrorMessage = "メールアドレスまたはパスワードが正しくありません。"
                 return
             }

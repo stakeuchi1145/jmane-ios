@@ -11,7 +11,13 @@ import Alamofire
 
 class ApiService: ObservableObject {
     static let shared = ApiService()
-    private let baseUrl: String = "\(ProcessInfo.processInfo.environment["BASE_URL"] ?? "")"
+    private let baseUrl: String = {
+        guard let url = ProcessInfo.processInfo.environment["BASE_URL"] else {
+            fatalError("BASE_URL environment variable is required")
+        }
+        
+        return url
+    }
 
     func login(email: String, password: String) async throws -> String {
         let url = baseUrl + "auth/login"
@@ -22,7 +28,7 @@ class ApiService: ObservableObject {
 
         return try await withCheckedThrowingContinuation { continuation in
             AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
-                .validate(statusCode: 200 ... 400)
+                .validate(statusCode: 200..<300)
                 .responseData { response in
                     do {
                         switch response.result {
