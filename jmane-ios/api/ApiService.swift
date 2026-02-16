@@ -11,16 +11,21 @@ import Alamofire
 
 class ApiService: ObservableObject {
     static let shared = ApiService()
-    private let baseUrl: String = {
-        guard let url = ProcessInfo.processInfo.environment["BASE_URL"] else {
-            fatalError("BASE_URL environment variable is required")
+    private let env = ProcessInfo.processInfo.environment
+
+    private func baseURLString() throws -> String {
+        guard let value = env["BASE_API_URL"],
+              !value.isEmpty else {
+            throw fatalError()
         }
-        
-        return url
+                
+        return value
     }
 
     func login(email: String, password: String) async throws -> String {
-        let url = baseUrl + "auth/login"
+        let baseUrl = try getBaseURL()
+        let url = "\(baseUrl)/auth/login"
+
         let parameters: Parameters = [
             "email": email,
             "password": password
@@ -45,6 +50,15 @@ class ApiService: ObservableObject {
                         continuation.resume(throwing: error)
                     }
                 }
+        }
+    }
+    
+    private func getBaseURL() throws -> String {
+        do {
+            return try baseURLString()
+        } catch {
+            debugPrint(error)
+            throw error
         }
     }
 }
