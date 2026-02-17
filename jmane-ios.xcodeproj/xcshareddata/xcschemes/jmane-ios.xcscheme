@@ -53,7 +53,7 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "BASE_API_URL"
-            value = "https://jmane.stakeuchi.work/"
+            value = "https://jmane.stakeuchi.work"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>

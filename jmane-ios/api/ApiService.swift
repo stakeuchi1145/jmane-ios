@@ -8,6 +8,9 @@
 import Combine
 import SwiftUI
 import Alamofire
+enum ApiError: Error {
+    case missingEnvironmentVariable(String)
+}
 
 class ApiService: ObservableObject {
     static let shared = ApiService()
@@ -16,7 +19,7 @@ class ApiService: ObservableObject {
     private func baseURLString() throws -> String {
         guard let value = env["BASE_API_URL"],
               !value.isEmpty else {
-            throw fatalError()
+            throw ApiError.missingEnvironmentVariable("BASE_API_URL")
         }
                 
         return value

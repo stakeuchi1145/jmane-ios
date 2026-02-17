@@ -85,7 +85,6 @@
 			name = "jmane-ios";
 			packageProductDependencies = (
 				8B7815822F42BDE700F1B97C /* Alamofire */,
-				8B7815842F42BDE700F1B97C /* AlamofireDynamic */,
 			);
 			productName = "jmane-ios";
 			productReference = 8B2D6F4C2EE05FE700C53763 /* jmane-ios.app */;
@@ -374,11 +373,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8B7815812F42BDE700F1B97C /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		8B7815842F42BDE700F1B97C /* AlamofireDynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8B7815812F42BDE700F1B97C /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = AlamofireDynamic;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
